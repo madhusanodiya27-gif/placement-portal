@@ -1,0 +1,9 @@
+{
+  "name": "campushire-placement-portal",
+  "version": "1.0.0",
+  "description": "College Placement Portal - Express + SQLite + vanilla JS SPA",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": "22.x" },
+  "dependencies": { "better-sqlite3": "^11.3.0", "express": "^4.19.2" }
+}

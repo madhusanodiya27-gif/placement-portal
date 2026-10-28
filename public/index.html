@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CampusHire – College Placement Portal</title>
+<meta name="color-scheme" content="light dark">
+<style>
+:root{--bg:#f4f5fb;--card:#fff;--tx:#1a1c2e;--mut:#667;--ac:#4f46e5;--ac2:#7c3aed;--bd:#e3e5f1;--sh:0 10px 30px rgba(40,40,110,.08);--ok:#15803d;--bad:#b91c1c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e0f1f;--card:#181a30;--tx:#eceefc;--mut:#9aa0c8;--bd:#2a2d4d;--sh:0 10px 30px rgba(0,0,0,.45);--ok:#4ade80;--bad:#f87171}}
+:root[data-theme="dark"]{--bg:#0e0f1f;--card:#181a30;--tx:#eceefc;--mut:#9aa0c8;--bd:#2a2d4d;--sh:0 10px 30px rgba(0,0,0,.45);--ok:#4ade80;--bad:#f87171}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;align-items:center;gap:8px;padding:12px 24px;background:var(--card);border-bottom:1px solid var(--bd);position:sticky;top:env(safe-area-inset-top,0px);z-index:5;flex-wrap:wrap}
+.logo{font-weight:800;font-size:19px;margin-right:auto;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.who{color:var(--mut);margin:0 6px}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:9px 16px;transition:transform .15s,background .2s,box-shadow .2s,opacity .2s}
+nav{display:flex;gap:4px}nav button,.ghost{background:transparent;color:var(--tx)}
+nav button:hover,.ghost:hover{background:var(--bd)}nav button.on{background:var(--ac);color:#fff}
+.pri{background:linear-gradient(90deg,var(--ac),var(--ac2));color:#fff;font-weight:600;width:100%;margin-top:6px}
+.pri:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 20px rgba(79,70,229,.35)}
+.pri:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:1050px;margin:0 auto;padding:28px 20px 60px}
+.enter{animation:in .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px;box-shadow:var(--sh)}
+h1,h2,h3{margin:0 0 10px;letter-spacing:-.01em}.mut{color:var(--mut)}
+.auth{max-width:420px;margin:30px auto}
+.seg{display:flex;background:var(--bg);border-radius:12px;padding:4px;margin:14px 0}
+.seg button{flex:1;background:transparent;color:var(--mut)}.seg button.on{background:var(--card);color:var(--tx);box-shadow:var(--sh)}
+label{display:block;font-weight:600;font-size:13px;margin:10px 0}
+input,select,textarea{display:block;width:100%;margin-top:5px;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:0;border-color:var(--ac);box-shadow:0 0 0 3px rgba(79,70,229,.25)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hint{font-size:13px;color:var(--mut);text-align:center}.hint a{color:var(--ac)}
+.bar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px}.bar input{max-width:280px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.job{display:flex;flex-direction:column;gap:10px;animation:in .5s both;animation-delay:var(--d);transition:transform .2s,box-shadow .2s}
+.job:hover{transform:translateY(-4px)}.job p{margin:0;flex:1}
+.top{display:flex;gap:12px;align-items:center}.top h3{margin:0;font-size:16px}
+.av{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--ac),var(--ac2))}
+.tags{display:flex;flex-wrap:wrap;gap:6px}.tags span{font-size:12px;padding:3px 9px;border-radius:99px;background:var(--bg);border:1px solid var(--bd)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:24px}
+.stat b{display:block;font-size:34px;line-height:1.1}.stat span{color:var(--mut)}
+.tbl{overflow-x:auto;padding:6px 14px}table{width:100%;border-collapse:collapse;min-width:560px}
+th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--bd)}th{color:var(--mut);font-weight:600;font-size:13px}tr:last-child td{border:0}
+tbody tr,tr{transition:background .2s}tr:hover td{background:var(--bg)}
+.badge{padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--bd)}
+.badge.Shortlisted{background:#fef3c7;color:#92400e}.badge.Selected{background:#dcfce7;color:#166534}.badge.Rejected{background:#fee2e2;color:#991b1b}.badge.Applied{background:#e0e7ff;color:#3730a3}
+td select{margin:0;padding:6px 8px;width:auto}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--tx);color:var(--bg);padding:11px 20px;border-radius:12px;opacity:0;pointer-events:none;transition:.3s;z-index:9}
+#toast.show{opacity:1;transform:translate(-50%,0)}#toast.err{background:var(--bad);color:#fff}
+footer{text-align:center;color:var(--mut);font-size:12px;padding:0 20px 24px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(max-width:560px){.row{grid-template-columns:1fr}header{padding:10px 14px}}
+</style>
+</head>
+<body>
+<header id="nav"></header>
+<main id="view"></main>
+<div id="toast"></div>
+<footer id="foot" hidden>Demo mode: data is saved in this browser. The full Node.js + SQLite backend is in the project’s server.js.</footer>
+<script>
+// ---------- helpers ----------
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let token = null, user = null, tab = '', demo = false, _jobs = [];
+try { const s = JSON.parse(sessionStorage.getItem('pps') || 'null'); if (s) { token = s.token; user = s.user; } } catch {}
+
+function show(html) { const v = $('#view'); v.innerHTML = html; v.classList.remove('enter'); void v.offsetWidth; v.classList.add('enter'); }
+function toast(m, bad) { const t = $('#toast'); t.textContent = m; t.className = 'show' + (bad ? ' err' : ''); clearTimeout(t._t); t._t = setTimeout(() => t.className = '', 2600); }
+
+// ---------- API client (real backend first, browser demo as fallback) ----------
+async function api(m, p, b) {
+  let r;
+  try { r = await fetch('/api' + p, { method: m, headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: 'Bearer ' + token } : {}) }, body: b ? JSON.stringify(b) : undefined }); }
+  catch { return mock(m, p, b); }
+  if (!(r.headers.get('content-type') || '').includes('json')) return mock(m, p, b);
+  const d = await r.json();
+  if (!r.ok) throw new Error(d.error || 'Something went wrong');
+  return d;
+}
+
+// ---------- demo backend (only used when no server is reachable) ----------
+const SEED = [['TCS','Systems Engineer','Indore','₹7 LPA',6,'2026-11-30','Build and support enterprise software for global clients.'],['Infosys','Software Developer','Pune','₹6.5 LPA',6.5,'2026-12-05','Full-stack development on cloud-native products.'],['Zoho','Member Technical Staff','Chennai','₹9 LPA',7.5,'2026-12-10','Work on in-house products used by millions.'],['Persistent','Backend Engineer','Nagpur','₹8 LPA',7,'2026-12-15','Design APIs and data pipelines in Node.js and Java.'],['Wipro','Data Analyst','Bengaluru','₹5.5 LPA',6,'2026-12-20','Turn business data into dashboards and decisions.']]
+  .map((r, i) => ({ id: i + 1, company: r[0], title: r[1], location: r[2], package: r[3], min_cgpa: r[4], deadline: r[5], description: r[6] }));
+let M; try { M = JSON.parse(localStorage.getItem('pp') || 'null'); } catch {}
+M = M || { u: [{ id: 1, name: 'TPO Admin', email: 'admin@college.edu', password: 'admin123', role: 'admin' }, { id: 2, name: 'Rahul Sharma', email: 'rahul@student.edu', password: 'student123', role: 'student', branch: 'CSE', cgpa: 8.2 }], j: SEED, a: [{ id: 1, user_id: 2, job_id: 1, status: 'Shortlisted' }], n: 100 };
+const save = () => { try { localStorage.setItem('pp', JSON.stringify(M)); } catch {} };
+async function mock(m, p, b) {
+  demo = true; $('#foot').hidden = false;
+  const me = M.u.find(u => u.id == token), bad = t => { throw new Error(t); };
+  const pub = u => ({ id: u.id, name: u.name, email: u.email, role: u.role, branch: u.branch, cgpa: u.cgpa });
+  const [, r, id] = p.split('/'), k = m + ' /' + r, job = x => M.j.find(j => j.id == x.job_id) || {};
+  if (k == 'POST /login') { const u = M.u.find(u => u.email == b.email && u.password == b.password); if (!u) bad('Invalid email or password'); return { token: String(u.id), user: pub(u) }; }
+  if (k == 'POST /register') { if (M.u.some(u => u.email == b.email)) bad('Email already registered'); const u = { id: M.n++, name: b.name, email: b.email, password: b.password, role: 'student', branch: b.branch, cgpa: +b.cgpa }; M.u.push(u); save(); return { token: String(u.id), user: pub(u) }; }
+  if (!me) bad('Please log in');
+  if (k == 'GET /jobs') return M.j.slice().reverse().map(j => ({ ...j, applied: M.a.some(a => a.user_id == me.id && a.job_id == j.id) }));
+  if (k == 'POST /apply') { const j = M.j.find(j => j.id == id); if (!j) bad('Job not found'); if (me.cgpa < j.min_cgpa) bad('Your CGPA is below the requirement'); if (M.a.some(a => a.user_id == me.id && a.job_id == j.id)) bad('You already applied to this job'); M.a.push({ id: M.n++, user_id: me.id, job_id: j.id, status: 'Applied' }); save(); return { ok: 1 }; }
+  if (k == 'GET /my-applications') return M.a.filter(a => a.user_id == me.id).reverse().map(a => ({ ...a, company: job(a).company, title: job(a).title, package: job(a).package }));
+  if (me.role != 'admin') bad('Not allowed');
+  if (k == 'GET /stats') return { students: M.u.filter(u => u.role == 'student').length, jobs: M.j.length, applications: M.a.length, placed: M.a.filter(a => a.status == 'Selected').length };
+  if (k == 'POST /jobs') { M.j.push({ id: M.n++, ...b, min_cgpa: +b.min_cgpa }); save(); return { ok: 1 }; }
+  if (k == 'DELETE /jobs') { M.j = M.j.filter(j => j.id != id); M.a = M.a.filter(a => a.job_id != id); save(); return { ok: 1 }; }
+  if (k == 'GET /applications') return M.a.slice().reverse().map(a => { const u = M.u.find(u => u.id == a.user_id) || {}; return { id: a.id, status: a.status, name: u.name, email: u.email, branch: u.branch, cgpa: u.cgpa, company: job(a).company, title: job(a).title }; });
+  if (k == 'PUT /applications') { M.a.find(a => a.id == id).status = b.status; save(); return { ok: 1 }; }
+  bad('Not found');
+}
+
+// ---------- navigation ----------
+const STATUS = ['Applied', 'Shortlisted', 'Selected', 'Rejected'];
+const badge = s => `<span class="badge ${s}">${s}</span>`;
+function head() {
+  const t = !user ? [] : user.role == 'admin' ? [['dash', 'Dashboard'], ['post', 'Post job'], ['apps', 'Applicants']] : [['jobs', 'Jobs'], ['mine', 'My applications']];
+  $('#nav').innerHTML = `<div class="logo">🎓 CampusHire</div><nav>${t.map(([k, l]) => `<button class="${tab == k ? 'on' : ''}" onclick="go('${k}')">${l}</button>`).join('')}</nav>` + (user ? `<span class="who">${esc(user.name)}</span><button class="ghost" onclick="logout()">Log out</button>` : '');
+}
+const views = { dash, post, apps, jobs, mine };
+function go(k) { tab = k; head(); views[k]().catch(e => toast(e.message, 1)); }
+function logout() { token = user = null; try { sessionStorage.removeItem('pps'); } catch {} auth(); }
+
+// ---------- auth ----------
+function auth(mode = 'login') {
+  tab = ''; head();
+  const reg = mode == 'reg';
+  show(`<div class="card auth"><h1>${reg ? 'Create your account' : 'Welcome back'}</h1><p class="mut">Find and track campus placements in one place.</p>
+  <div class="seg"><button class="${!reg ? 'on' : ''}" onclick="auth('login')">Log in</button><button class="${reg ? 'on' : ''}" onclick="auth('reg')">Register</button></div>
+  <form onsubmit="return submitAuth(event,'${mode}')">
+  ${reg ? '<label>Full name<input name="name" required></label>' : ''}
+  <label>Email<input name="email" type="email" required></label>
+  <label>Password<input name="password" type="password" required minlength="6"></label>
+  ${reg ? '<div class="row"><label>Branch<select name="branch"><option>CSE</option><option>IT</option><option>ECE</option><option>EE</option><option>ME</option><option>CE</option></select></label><label>CGPA<input name="cgpa" type="number" step="0.01" min="0" max="10" required></label></div>' : ''}
+  <button class="pri">${reg ? 'Create account' : 'Log in'}</button></form>
+  ${reg ? '' : `<p class="hint">Try a demo account: <a href="#" onclick="fill(event,'rahul@student.edu','student123')">Student</a> or <a href="#" onclick="fill(event,'admin@college.edu','admin123')">Admin (TPO)</a></p>`}</div>`);
+}
+function fill(e, a, b) { e.preventDefault(); document.querySelector('[name=email]').value = a; document.querySelector('[name=password]').value = b; }
+async function submitAuth(e, mode) {
+  e.preventDefault();
+  try {
+    const r = await api('POST', mode == 'login' ? '/login' : '/register', Object.fromEntries(new FormData(e.target)));
+    token = r.token; user = r.user; try { sessionStorage.setItem('pps', JSON.stringify(r)); } catch {}
+    go(user.role == 'admin' ? 'dash' : 'jobs'); toast('Welcome, ' + user.name.split(' ')[0]);
+  } catch (x) { toast(x.message, 1); }
+  return false;
+}
+
+// ---------- student views ----------
+async function jobs() {
+  _jobs = await api('GET', '/jobs');
+  show(`<div class="bar"><h2>Open positions</h2><input id="q" placeholder="Search company or role" oninput="drawJobs()"></div><div id="jl" class="grid"></div>`);
+  drawJobs();
+}
+function drawJobs() {
+  const q = ($('#q').value || '').toLowerCase();
+  $('#jl').innerHTML = _jobs.filter(j => (j.company + ' ' + j.title).toLowerCase().includes(q)).map((j, i) => {
+    const ok = user.cgpa >= j.min_cgpa;
+    return `<div class="card job" style="--d:${i * 60}ms"><div class="top"><div class="av">${esc(j.company[0])}</div><div><h3>${esc(j.title)}</h3><span class="mut">${esc(j.company)}</span></div></div>
+    <p class="mut">${esc(j.description)}</p><div class="tags"><span>📍 ${esc(j.location)}</span><span>💰 ${esc(j.package)}</span><span>🎯 CGPA ${j.min_cgpa}+</span><span>⏳ ${esc(j.deadline)}</span></div>
+    <button class="pri" ${j.applied || !ok ? 'disabled' : ''} onclick="apply(${j.id})">${j.applied ? 'Applied ✓' : ok ? 'Apply now' : 'Not eligible'}</button></div>`;
+  }).join('') || '<p class="mut">No jobs match your search.</p>';
+}
+async function apply(id) { try { await api('POST', '/apply/' + id); toast('Application submitted'); jobs(); } catch (e) { toast(e.message, 1); } }
+async function mine() {
+  const a = await api('GET', '/my-applications');
+  show(`<h2>My applications</h2>` + (a.length ? `<div class="card tbl"><table><tr><th>Company</th><th>Role</th><th>Package</th><th>Status</th></tr>${a.map(x => `<tr><td>${esc(x.company)}</td><td>${esc(x.title)}</td><td>${esc(x.package)}</td><td>${badge(x.status)}</td></tr>`).join('')}</table></div>` : '<p class="mut">No applications yet. Open the Jobs tab and apply to your first role.</p>'));
+}
+
+// ---------- admin views ----------
+async function dash() {
+  const [s, l] = await Promise.all([api('GET', '/stats'), api('GET', '/jobs')]);
+  show(`<h2>Placement overview</h2><div class="stats">${[['Students', s.students], ['Active jobs', s.jobs], ['Applications', s.applications], ['Placed', s.placed]].map(([k, v]) => `<div class="card stat"><b data-n="${v}">0</b><span>${k}</span></div>`).join('')}</div>
+  <h3>Posted jobs</h3><div class="card tbl"><table><tr><th>Company</th><th>Role</th><th>Package</th><th>Deadline</th><th></th></tr>${l.map(j => `<tr><td>${esc(j.company)}</td><td>${esc(j.title)}</td><td>${esc(j.package)}</td><td>${esc(j.deadline)}</td><td><button class="ghost" onclick="del(${j.id})">Delete</button></td></tr>`).join('')}</table></div>`);
+  document.querySelectorAll('[data-n]').forEach(e => { const n = +e.dataset.n; let i = 0; const t = setInterval(() => { i = Math.min(n, i + Math.max(1, Math.ceil(n / 20))); e.textContent = i; if (i >= n) clearInterval(t); }, 30); });
+}
+async function del(id) { if (!confirm('Delete this job and its applications?')) return; await api('DELETE', '/jobs/' + id); toast('Job deleted'); dash(); }
+async function post() {
+  show(`<div class="card auth" style="max-width:560px"><h2>Post a new job</h2><form onsubmit="return savePost(event)">
+  <div class="row"><label>Company<input name="company" required></label><label>Job title<input name="title" required></label></div>
+  <div class="row"><label>Location<input name="location" required></label><label>Package<input name="package" placeholder="₹8 LPA" required></label></div>
+  <div class="row"><label>Minimum CGPA<input name="min_cgpa" type="number" step="0.1" min="0" max="10" required></label><label>Deadline<input name="deadline" type="date" required></label></div>
+  <label>Description<textarea name="description" rows="3" required></textarea></label><button class="pri">Publish job</button></form></div>`);
+}
+async function savePost(e) { e.preventDefault(); try { await api('POST', '/jobs', Object.fromEntries(new FormData(e.target))); toast('Job published'); go('dash'); } catch (x) { toast(x.message, 1); } return false; }
+async function apps() {
+  const a = await api('GET', '/applications');
+  show(`<h2>Applicants</h2>` + (a.length ? `<div class="card tbl"><table><tr><th>Student</th><th>Branch</th><th>CGPA</th><th>Applied for</th><th>Status</th></tr>${a.map(x => `<tr><td>${esc(x.name)}<br><span class="mut">${esc(x.email)}</span></td><td>${esc(x.branch)}</td><td>${x.cgpa}</td><td>${esc(x.title)}, ${esc(x.company)}</td><td><select onchange="setStatus(${x.id},this.value)">${STATUS.map(s => `<option ${s == x.status ? 'selected' : ''}>${s}</option>`).join('')}</select></td></tr>`).join('')}</table></div>` : '<p class="mut">No applications yet.</p>'));
+}
+async function setStatus(id, status) { await api('PUT', '/applications/' + id, { status }); toast('Status updated to ' + status); }
+
+// ---------- start ----------
+user ? go(user.role == 'admin' ? 'dash' : 'jobs') : auth();
+</script>
+</body>
+</html>
